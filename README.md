@@ -31,7 +31,7 @@ Python 3.10+ and NumPy are required.
 
 ```bash
 python -m pip install -e .
-glasgow-heat demo --output-dir output/demo
+urban-heat-explorer demo --output-dir output/demo
 ```
 
 Or run without installation:
@@ -48,7 +48,7 @@ The original coursework analysed Landsat 8 imagery acquired on 28 June 2019 for 
 
 ## Input contract
 
-`glasgow-heat analyse` accepts an `.npz` raster archive with aligned arrays:
+`urban-heat-explorer analyse` accepts an `.npz` raster archive with aligned arrays:
 
 | Array | Meaning | Expected values |
 |---|---|---|
@@ -58,7 +58,7 @@ The original coursework analysed Landsat 8 imagery acquired on 28 June 2019 for 
 | `land_cover` | class identifier | 1 built-up, 2 water, 3 forest, 4 grassland |
 
 ```bash
-glasgow-heat analyse data/my_glasgow_scene.npz --output-dir output/my_run
+urban-heat-explorer analyse data/my_city_scene.npz --output-dir output/my_run
 ```
 
 See [the data guide](docs/data-guide.md) for a real-data preparation workflow using Landsat Collection 2, cloud masking and a documented LST method.
