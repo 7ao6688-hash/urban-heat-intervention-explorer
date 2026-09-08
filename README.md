@@ -5,6 +5,10 @@
 
 A reusable, uncertainty-aware screening tool for identifying greener-infrastructure intervention opportunities from land-surface temperature (LST), NDVI and land-cover data.
 
+## Try the interactive dashboard
+
+**[Open the Urban Heat Intervention Explorer](https://7ao6688-hash.github.io/urban-heat-intervention-explorer/)** to explore NDVI uplift scenarios and screening cooling ranges in the browser. The live interface uses the synthetic demonstration scene; use the Python workflow below to analyse a custom city dataset.
+
 > **Glasgow demonstration notice.** The repository ships a deterministic synthetic Glasgow-like raster scene as an example only. The tool is designed for any city with aligned LST, red/NIR and land-cover inputs.
 
 ![Urban heat intervention dashboard](docs/figures/demo_dashboard.svg)
