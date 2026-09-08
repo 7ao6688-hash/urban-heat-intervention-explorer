@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "urban-heat-intervention-explorer"
+version = "0.1.0"
+description = "Reusable uncertainty-aware urban heat intervention screening"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "Xiaoqiao Liu"}]
+dependencies = ["numpy>=1.24"]
+
+[project.scripts]
+urban-heat-explorer = "urban_heat_explorer.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

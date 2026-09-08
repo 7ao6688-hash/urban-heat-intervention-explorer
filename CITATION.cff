@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Glasgow Urban Heat and Green Infrastructure"
+type: software
+authors:
+  - family-names: Liu
+    given-names: Xiaoqiao
+version: 0.1.0
+date-released: 2026-09-08
+license: MIT
