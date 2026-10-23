@@ -1,0 +1,5 @@
+class_id,land_cover,pixels,area_km2,mean_lst_c,p95_lst_c,mean_ndvi
+1,Built-up,134822,121.34,25.9,28.13,0.436
+2,Water,1024,0.922,19.82,21.84,0.214
+3,Forest,65698,59.128,23.22,26.65,0.738
+4,Grassland,23736,21.362,21.26,24.49,0.828

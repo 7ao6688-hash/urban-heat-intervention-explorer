@@ -6,8 +6,10 @@ def validate_scene(scene: UrbanScene) -> dict:
     if len({a.shape for a in arrays}) != 1 or scene.red.ndim != 2: raise ValueError("All inputs must be aligned 2D arrays")
     if not all(np.all(np.isfinite(a)) for a in arrays[:3]): raise ValueError("Reflectance and LST must be finite")
     if np.any(scene.red < 0) or np.any(scene.nir < 0): raise ValueError("Reflectance must be non-negative")
-    if not set(np.unique(scene.land_cover)).issubset(CLASSES): raise ValueError("Unknown land-cover class")
-    return {"provenance":scene.provenance,"rows":int(scene.red.shape[0]),"columns":int(scene.red.shape[1]),"resolution_m":scene.resolution_m,"pixels":int(scene.red.size)}
+    # Class 0 marks pixels outside the study area (e.g. beyond a city boundary or under cloud).
+    if not set(np.unique(scene.land_cover)).issubset({0, *CLASSES}): raise ValueError("Unknown land-cover class")
+    if not np.any(scene.land_cover > 0): raise ValueError("No pixels inside the study area")
+    return {"provenance":scene.provenance,"rows":int(scene.red.shape[0]),"columns":int(scene.red.shape[1]),"resolution_m":scene.resolution_m,"pixels":int(np.count_nonzero(scene.land_cover > 0))}
 
 def derive_ndvi(red, nir):
     return np.divide(nir-red, nir+red, out=np.zeros_like(red,dtype=float), where=(nir+red)!=0)
@@ -20,16 +22,17 @@ def _regression(x,y,seed=9):
     return {"slope_c_per_ndvi":round(float(slope),3),"intercept_c":round(float(intercept),3),"r_squared":round(float(r2),3),"bootstrap_slope_ci_95":[round(float(v),3) for v in np.percentile(slopes,[2.5,97.5])],"sample_size":int(len(x))}
 
 def analyse_scene(scene: UrbanScene, sample_size=200):
-    quality=validate_scene(scene); ndvi=derive_ndvi(scene.red,scene.nir); mean,sd=float(scene.lst_c.mean()),float(scene.lst_c.std())
-    # Statistical screening bands: <=-1 SD, -1--.35, -.35--.35, .35-1, >=1 SD.
-    z=(scene.lst_c-mean)/sd; uhi=np.select([z<=-1,z<=-.35,z<.35,z<1],[1,2,3,4],default=5)
-    rng=np.random.default_rng(77); idx=rng.choice(ndvi.size,min(sample_size,ndvi.size),replace=False); reg=_regression(ndvi.ravel()[idx],scene.lst_c.ravel()[idx])
+    quality=validate_scene(scene); ndvi=derive_ndvi(scene.red,scene.nir); inside=scene.land_cover>0
+    mean,sd=float(scene.lst_c[inside].mean()),float(scene.lst_c[inside].std())
+    # Statistical screening bands: <=-1 SD, -1--.35, -.35--.35, .35-1, >=1 SD; 0 outside the study area.
+    z=np.where(inside,(scene.lst_c-mean)/sd,0.0); uhi=np.where(inside,np.select([z<=-1,z<=-.35,z<.35,z<1],[1,2,3,4],default=5),0)
+    candidates=np.flatnonzero(inside); rng=np.random.default_rng(77); idx=rng.choice(candidates,min(sample_size,candidates.size),replace=False); reg=_regression(ndvi.ravel()[idx],scene.lst_c.ravel()[idx])
     land=[]
     for code,name in CLASSES.items():
         values=scene.lst_c[scene.land_cover==code]; land.append({"class_id":code,"land_cover":name,"pixels":int(len(values)),"area_km2":round(len(values)*scene.resolution_m**2/1e6,3),"mean_lst_c":round(float(values.mean()),2),"p95_lst_c":round(float(np.percentile(values,95)),2),"mean_ndvi":round(float(ndvi[scene.land_cover==code].mean()),3)})
     uhi_rows=[]; names={1:"Cool island",2:"Low heat",3:"Moderate heat",4:"High heat",5:"Heat island core"}
     for code,name in names.items():
-        pixels=int(np.count_nonzero(uhi==code)); uhi_rows.append({"uhi_class":name,"pixels":pixels,"area_km2":round(pixels*scene.resolution_m**2/1e6,3),"area_pct":round(pixels/uhi.size*100,2)})
+        pixels=int(np.count_nonzero(uhi==code)); uhi_rows.append({"uhi_class":name,"pixels":pixels,"area_km2":round(pixels*scene.resolution_m**2/1e6,3),"area_pct":round(pixels/candidates.size*100,2)})
     eligible=(scene.land_cover==1)&(uhi>=4)&(ndvi<.35)
     priority=np.where(eligible,np.maximum(z,0)*(1-np.clip(ndvi,0,1)),0.0)
     scenarios=[]

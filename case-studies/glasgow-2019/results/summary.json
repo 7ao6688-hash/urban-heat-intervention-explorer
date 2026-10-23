@@ -1,0 +1,27 @@
+{
+  "provenance": "observed: Landsat 8 OLI/TIRS, 28 June 2019, Glasgow city boundary",
+  "rows": 557,
+  "columns": 674,
+  "resolution_m": 30.0,
+  "pixels": 225280,
+  "analysis_scope": "Daytime surface-UHI intervention screening, not causal prediction, air temperature or health-risk measurement.",
+  "mean_lst_c": 24.6,
+  "lst_sd_c": 2.48,
+  "heat_island_core_area_pct": 14.21,
+  "eligible_intervention_pixels": 28281,
+  "ndvi_lst_regression": {
+    "slope_c_per_ndvi": -8.736,
+    "intercept_c": 29.509,
+    "r_squared": 0.464,
+    "bootstrap_slope_ci_95": [
+      -10.125,
+      -7.087
+    ],
+    "sample_size": 200
+  },
+  "scene": "LC08_L2SP_205021_20190628_20200827_02_T1",
+  "grid_epsg": 32630,
+  "lst_method": "Single-channel LST from TIRS band 10: TOA radiance -> brightness temperature -> NDVI-based emissivity (vegetation proportion) -> Sobrino correction, processed in ENVI 5.6",
+  "classification": "Supervised maximum-likelihood classification (built-up, water, forest, grassland) from Landsat 8 OLI",
+  "boundary_note": "City boundary used for clipping only; not redistributed"
+}

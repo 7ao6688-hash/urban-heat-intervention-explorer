@@ -1,0 +1,10 @@
+{
+  "scene": "LC08_L2SP_205021_20190628_20200827_02_T1",
+  "provenance": "observed: Landsat 8 OLI/TIRS, 28 June 2019, Glasgow city boundary",
+  "grid_epsg": 32630,
+  "lst_method": "Single-channel LST from TIRS band 10: TOA radiance -> brightness temperature -> NDVI-based emissivity (vegetation proportion) -> Sobrino correction, processed in ENVI 5.6",
+  "classification": "Supervised maximum-likelihood classification (built-up, water, forest, grassland) from Landsat 8 OLI",
+  "class_map": {"1": 2, "2": 1, "3": 3, "4": 4},
+  "boundary_note": "City boundary used for clipping only; not redistributed",
+  "figure_note": "Landsat 8, 28 Jun 2019 ~11:20 UTC · 30 m · Glasgow city boundary · axes in km from SW corner"
+}

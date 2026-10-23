@@ -9,7 +9,21 @@ A reusable, uncertainty-aware screening tool for identifying greener-infrastruct
 
 **[Open the Urban Heat Intervention Explorer](https://7ao6688-hash.github.io/urban-heat-intervention-explorer/)** to explore NDVI uplift scenarios and screening cooling ranges in the browser. The live interface uses the synthetic demonstration scene; use the Python workflow below to analyse a custom city dataset.
 
-> **Glasgow demonstration notice.** The repository ships a deterministic synthetic Glasgow-like raster scene as an example only. The tool is designed for any city with aligned LST, red/NIR and land-cover inputs.
+## Observed case study: Glasgow, 28 June 2019
+
+[![Glasgow intervention priority](case-studies/glasgow-2019/results/intervention_priority_map.png)](case-studies/glasgow-2019/)
+
+Landsat 8 data, clipped to the Glasgow city boundary (≈ 203 km²):
+
+- Built-up land averages **25.9 °C** at the surface, against **21.3 °C** for grassland.
+- Each +0.1 NDVI goes with about **0.9 °C** cooler surfaces (95% CI 0.7–1.0 °C).
+- **25.5 km²** of hot, low-vegetation built-up land is flagged for greening screening.
+
+The [full case study](case-studies/glasgow-2019/) has maps, tables, the method and its limits. The clipped scene is committed, so the analysis reruns with one command.
+
+## Synthetic demonstration
+
+The interactive dashboard and the quick-start demo use a deterministic **synthetic** Glasgow-like scene, so the tool can be tried without data. The tool works for any city with aligned LST, red/NIR and land-cover inputs; pixels outside the study area are marked with land-cover class 0.
 
 ![Urban heat intervention dashboard](docs/figures/demo_dashboard.svg)
 

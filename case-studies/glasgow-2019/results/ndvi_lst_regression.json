@@ -1,0 +1,10 @@
+{
+  "slope_c_per_ndvi": -8.736,
+  "intercept_c": 29.509,
+  "r_squared": 0.464,
+  "bootstrap_slope_ci_95": [
+    -10.125,
+    -7.087
+  ],
+  "sample_size": 200
+}

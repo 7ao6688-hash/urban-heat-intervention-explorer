@@ -4,4 +4,4 @@ This portfolio case study rebuilds an MSc coursework analysis of Glasgow's land-
 
 The public version keeps the case-specific question - how urban greenness and land-cover composition relate to daytime surface heat in Glasgow - while adding reproducible Python analysis, statistical rules, bootstrap uncertainty and tests.
 
-The coursework imagery, boundary data and original maps are not redistributed. All committed rasters and outputs are synthetic demonstrations. This repository is not an official Glasgow City Council product and LST must not be interpreted as air temperature or heat-health risk.
+The observed analysis lives in [`case-studies/glasgow-2019`](../case-studies/glasgow-2019/). It commits a boundary-clipped scene derived from public-domain Landsat 8 data plus the resulting maps and tables. The boundary file itself, the full-scene coursework rasters and the original coursework maps are not redistributed. The dashboard and the quick-start demo remain synthetic. This repository is not an official Glasgow City Council product, and LST must not be interpreted as air temperature or heat-health risk.

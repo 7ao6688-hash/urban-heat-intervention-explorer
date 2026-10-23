@@ -1,0 +1,29 @@
+[
+  {
+    "ndvi_increase": 0.05,
+    "eligible_built_up_area_km2": 25.453,
+    "screening_cooling_c": 0.44,
+    "bootstrap_cooling_range_c": [
+      0.35,
+      0.51
+    ]
+  },
+  {
+    "ndvi_increase": 0.1,
+    "eligible_built_up_area_km2": 25.453,
+    "screening_cooling_c": 0.87,
+    "bootstrap_cooling_range_c": [
+      0.71,
+      1.01
+    ]
+  },
+  {
+    "ndvi_increase": 0.15,
+    "eligible_built_up_area_km2": 25.453,
+    "screening_cooling_c": 1.31,
+    "bootstrap_cooling_range_c": [
+      1.06,
+      1.52
+    ]
+  }
+]
